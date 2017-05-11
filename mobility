@@ -1,57 +1,60 @@
+
 def MSA25():
-    if sumdata <= 25
-    if True price= 175 + (sumusers)*15
-    if True print ("MSA: " + (price))
+    if sumdata <= 25:
+        price= 175 + (sumusers)*15
+        print ("MSA: " + (price))
     return
 def MSA35():
-    if 25 < sumdata <= 35
-    if True price= 245 + (sumusers)*15
-    if True print ("MSA: " + (price))
+    if 25 < sumdata <= 35:
+        price= 245 + (sumusers)*15
+        print ("MSA: " + (price))
     return
 def MSA50():
-    if 35< sumdata <= 50
-    if True price= 350 + (sumusers)*15
-    if True print ("MSA: " + (price))
+    if 35< sumdata <= 50:
+        price= 350 + (sumusers)*15
+        print ("MSA: " + (price))
     return
 def MSA85():
-    if 50< sumdata <= 85
-    if True price= 500 + (sumusers)*15
-    if True print ("MSA: " + (price))
+    if 50< sumdata <= 85:
+        price= 500 + (sumusers)*15
+        print ("MSA: " + (price))
     return
 def MSA150():
-    if 85< sumdata <= 150
-    if True price= 750 + (sumusers)*15
-    if True print ("MSA: " + (price))
+    if 85< sumdata <= 150:
+        price= 750 + (sumusers)*15
+        print ("MSA: " + (price))
     return
 def MSA200():
-    if 150< sumdata <= 200
-    if True price= 1000 + (sumusers)*15
-    if True print ("MSA: " + (price))
+    if 150< sumdata <= 200:
+        price= 1000 + (sumusers)*15
+        print ("MSA: " + (price))
     return
-    
+
 def MSP():
-    if sumusers <= 400
-    sumusers = a + b + c + d + e
-    sumdataG <= a + 3b + 5c + 7d + 10e
-    cost = 35a + 45b + 55c + 65d + 80e
-    optimal = minimize(cost)
+    if sumusers <= 400:
+        sumusers = a + b + c + d + e
+        sumdataG <= a + (3*b) + (5*c) + (7*d) + (10*e)
+        cost = (35*a) + (45*b) + (55*c) + (65*d) + (80*e)
+        optimal = minimize(cost)
+    print (a, b, c, d, e)
+    print (cost)
+    return
 
 
-###################################################33
+###################################################
 
 import pandas as pd
 import numpy as np
+from scipy.optimize import minimize
 #importing data files
-Plans=pd.read_excel("C:/Users/cd184s/Desktop/Projects/MobilePlans.xlsx")
-xl =pd.read_excel("C:/Users/cd184s/Desktop/Projects/ZM Equity RPA.xls")
-xl.tab_names
-[u'Tab1', u'Tab2']
-    xl = x/.parse("Tab2")
-Bdata= xl.ix[4:]
+Plans=pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/MobilePlans.xlsx')
+xls =pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/ZM Equity RPA.xls')
+df = xls.parse(1)
+Bdata= df.ix[4:]
 Bdata.head()
 sumusers=Bdata["Mobile Number"].sum()
 sumdata=Bdata["Avg Number of KB"].sum()
-sumdata= sumdata/1000000
+sumdataG= sumdata/1000000
 
 
 MSA25()
@@ -60,3 +63,4 @@ MSA50()
 MSA85()
 MSA150()
 MSA200()
+MSP()
