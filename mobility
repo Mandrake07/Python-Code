@@ -50,9 +50,9 @@ from scipy.optimize import minimize
 Plans = pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/MobilePlans.xlsx')
 xls = pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/ZM Equity RPA.xls')
 df = xls.parse(1)
-Bdata = df.ix[5:]
-sumKB = column.sum(78)
-dm = Bdata.as_matrix(7,78)
-#sumusers =
+Bdata = df.ix[4:]
+dm = Bdata.as_matrix['Unnamed: 7','Unnamed: 78'] 
+sumdata  = Bdata['Unnamed: 78']
+#sumusers = 
 sumdataG = sumKB/1000000
 
