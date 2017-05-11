@@ -41,26 +41,18 @@ def MSP():
     return
 
 
-###################################################
-
+###################################################33
+import xlrd
 import pandas as pd
 import numpy as np
 from scipy.optimize import minimize
 #importing data files
-Plans=pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/MobilePlans.xlsx')
-xls =pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/ZM Equity RPA.xls')
+Plans = pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/MobilePlans.xlsx')
+xls = pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/ZM Equity RPA.xls')
 df = xls.parse(1)
-Bdata= df.ix[4:]
-Bdata.head()
-sumusers=Bdata["Mobile Number"].sum()
-sumdata=Bdata["Avg Number of KB"].sum()
-sumdataG= sumdata/1000000
+Bdata = df.ix[5:]
+sumKB = column.sum(78)
+dm = Bdata.as_matrix(7,78)
+#sumusers =
+sumdataG = sumKB/1000000
 
-
-MSA25()
-MSA35()
-MSA50()
-MSA85()
-MSA150()
-MSA200()
-MSP()
