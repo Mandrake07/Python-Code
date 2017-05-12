@@ -1,45 +1,62 @@
 
+
 def MSA25():
-    if sumdata <= 25:
+    if sumdataG <= 25:
         price= 175 + (sumusers)*15
-        print ("MSA: " + (price))
+        print ("MSA: " + str(price))
     return
 def MSA35():
-    if 25 < sumdata <= 35:
+    if 25 < sumdataG <= 35:
         price= 245 + (sumusers)*15
-        print ("MSA: " + (price))
+        print ("MSA: " + str(price))
     return
 def MSA50():
-    if 35< sumdata <= 50:
+    if 35< sumdataG <= 50:
         price= 350 + (sumusers)*15
-        print ("MSA: " + (price))
+        print ("MSA: " + str(price))
     return
 def MSA85():
-    if 50< sumdata <= 85:
+    if 50< sumdataG <= 85:
         price= 500 + (sumusers)*15
-        print ("MSA: " + (price))
+        print ("MSA: " + str(price))
     return
 def MSA150():
-    if 85< sumdata <= 150:
+    if 85< sumdataG <= 150:
         price= 750 + (sumusers)*15
-        print ("MSA: " + (price))
+        print ("MSA: " + str(price))
     return
 def MSA200():
-    if 150< sumdata <= 200:
+    if 150< sumdataG <= 200:
         price= 1000 + (sumusers)*15
-        print ("MSA: " + (price))
+        print ("MSA: " + str(price))
     return
 
-def MSP():
-    if sumusers <= 400:
-        sumusers = a + b + c + d + e
-        sumdataG <= a + (3*b) + (5*c) + (7*d) + (10*e)
-        cost = (35*a) + (45*b) + (55*c) + (65*d) + (80*e)
-        optimal = minimize(cost)
-    print (a, b, c, d, e)
-    print (cost)
-    return
 
+
+###################################################33
+import xlrd
+import pandas as pd
+import numpy as np
+from scipy.optimize import minimize
+#importing data files
+Plans = pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/MobilePlans.xlsx')
+xls = pd.ExcelFile('C:/Users/cd184s/Desktop/Projects/ZM Equity RPA.xls')
+df = xls.parse(1)
+Bdata = df.ix[4:]
+sumKB = Bdata['Unnamed: 78'].sum()
+sumdataG = sumKB/1000000
+sumusers = len(Bdata.index)
+df1 = df.iloc[:,7].copy()
+df2 = df.iloc[:,78].copy()
+df_final = pd.concat([df1,df2], axis=1)
+df_final.columns = ['Mobile Numbers', 'Data']
+
+MSA25()
+MSA35()
+MSA50()
+MSA85()
+MSA150()
+MSA200()
 
 ###################################################33
 import xlrd
