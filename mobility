@@ -1,45 +1,82 @@
 
 
+def Unl_Plus():
+    groups = math.ceil(sumusers/10)
+    price= (groups*135)+20*(sumusers-2)
+    print ("Unlimited Plus: " + str(price))
+
+def Unl_Choice():
+    groups = math.ceil(sumusers/10)
+    price= (groups*115)+20*(sumusers-2)
+    print ("Unlimited choice: " + str(price))
+
 def MSA25():
-    if sumdataG <= 25:
-        groups = math.ceil(sumusers/25)
-        price= (groups)*175 + (sumusers)*15
+    if (sumdataG/MSAgroups) <= 25:
+        price= (MSAgroups)*175 + (sumusers)*15
         print ("MSA25: " + str(price))
     return
 def MSA35():
-    if 25 < sumdataG <= 35:
-        groups = math.ceil(sumusers/25)
-        price= (groups)*245 + (sumusers)*15
+    if 25 < (sumdataG/MSAgroups) <= 35:
+        price= (MSAgroups)*245 + (sumusers)*15
         print ("MSA35: " + str(price))
     return
 def MSA50():
-    if 35< sumdataG <= 50:
-        groups = math.ceil(sumusers/25)
-        price= (groups)*350 + (sumusers)*15
+    if 35< (sumdataG/MSAgroups) <= 50:
+        price= (MSAgroups)*350 + (sumusers)*15
         print ("MSA50: " + str(price))
     return
 def MSA85():
-    if 50< sumdataG <= 85:
-        groups = math.ceil(sumusers/25)
-        price= (groups)*500 + (sumusers)*15
+    if 50< (sumdataG/MSAgroups) <= 85:
+        price= (MSAgroups)*500 + (sumusers)*15
         print ("MSA85: " + str(price))
     return
 def MSA150():
-    if 85< sumdataG <= 150:
-        groups = math.ceil(sumusers/25)
-        price= (groups)*750 + (sumusers)*15
+    if 85< (sumdataG/MSAgroups) <= 150:
+        price= (MSAgroups)*750 + (sumusers)*15
         print ("MSA150: " + str(price))
     return
 def MSA200():
-    if 150< sumdataG <= 200:
-        groups = math.ceil(sumusers/25)
-        price= (groups)*1000 + (sumusers)*15
+    if 150< (sumdataG/MSAgroups) <= 200:
+        price= (MSAgroups)*1000 + (sumusers)*15
         print ("MSA200: " + str(price))
     return
+def total_cost(num_plans_list):
+
+    print(str(num_plans_list))
+    # num_plans_array[0] contains number of 1GB plans
+    num1g_plans = num_plans_list[0]
+    # num_plans_array[1] contains number of 2GB plans
+    num3g_plans = num_plans_list[1]
+    # num_plans_array[2] contains number of 3GB plans
+    num5g_plans = num_plans_list[2]
+    num7g_plans = num_plans_list[3]
+    num10g_plans = num_plans_list[4]
+
+    price_1g_plan = 35
+    price_3g_plan = 45
+    price_5g_plan = 55
+    price_7g_plan = 65
+    price_10g_plan = 80
+    return  num1g_plans * price_1g_plan + num3g_plans * price_3g_plan + num5g_plans * price_5g_plan + num7g_plans * price_7g_plan + num10g_plans * price_10g_plan
+
+def bandwidth_beyond_300G(num_plans_list):
+
+    # num_plans_array[0] contains number of 1GB plans
+    num1g_plans = num_plans_list[0]
+    # num_plans_array[1] contains number of 3GB plans
+    num3g_plans = num_plans_list[1]
+    # num_plans_array[2] contains number of 5GB plans
+    num5g_plans = num_plans_list[2]
+    num7g_plans = num_plans_list[3]
+    num10g_plans = num_plans_list[4]
+
+    return 1 * num1g_plans + 3 * num3g_plans + 5 * num5g_plans + 7 * num7g_plans + 10 * num10g_plans - 300
+
 
 
 
 ###################################################33
+import sympy
 import math
 import xlrd
 import pandas as pd
@@ -53,14 +90,37 @@ Bdata = df.ix[4:]
 sumKB = Bdata['Unnamed: 78'].sum()
 sumdataG = sumKB/1000000
 sumusers = len(Bdata.index)
+MSAgroups = math.ceil(sumusers/25)
 df1 = df.iloc[:,7].copy()
 df2 = df.iloc[:,78].copy()
 df_final = pd.concat([df1,df2], axis=1)
 df_final.columns = ['Mobile Numbers', 'Data']
 
+# we need to provide some initial guess to the optimizer. this is the point
+# where it will start 'exploring' the space of possible solutions
+initial_guess = [500,50]
+
+constraint = ({'type': 'ineq', 'fun': bandwidth_beyond_300G})
+
+# we want all argument values to be positive
+bnds = ((0, None), (0, None))
+
+res = minimize(total_cost, initial_guess, method='SLSQP', bounds=bnds, constraints=constraint)
+
+# the solution is in res.x
+
+print("Recommended number of 1G plans: %d" % res.x[0])
+print("Recommended number of 3G plans: %d" % res.x[1])
+print("Recommended number of 5G plans: %d" % res.x[1])
+print("Recommended number of 7G plans: %d" % res.x[1])
+print("Recommended number of 10G plans: %d" % res.x[1])
+
+Unl_Plus()
+Unl_Choice()
 MSA25()
 MSA35()
 MSA50()
 MSA85()
 MSA150()
 MSA200()
+MSP_Cost()
